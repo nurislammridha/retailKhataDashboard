@@ -1,0 +1,204 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+.clear {
+    clear: both;
+}
+
+.mt3 {
+    margin-top: 3px;
+}
+
+.mt5 {
+    margin-top: 5px;
+}
+
+.mt10 {
+    margin-top: 10px;
+}
+
+.mt15 {
+    margin-top: 15px;
+}
+
+.mt20 {
+    margin-top: 20px;
+}
+
+.mt25 {
+    margin-top: 25px;
+}
+
+.mr3 {
+    margin-right: 3px;
+}
+
+body {
+    /* min-height: 100%; */
+    background-color: #ddd;
+}
+
+.container {}
+
+.header {
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 18px;
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.menu {
+    width: fit-content;
+    height: auto;
+    background-color: coral;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.menu_list {
+    position: fixed;
+    z-index: 99;
+    width: 60%;
+    min-height: 87%;
+    top: 43px;
+    left: 0;
+    background-color: coral;
+}
+
+.menu_list ul {}
+
+.menu_list ul li {
+    margin-bottom: 5px;
+    padding: 10px;
+    border-bottom: 1px solid #fff;
+    cursor: pointer;
+}
+
+.title {
+    text-align: center;
+
+    padding: 10px;
+}
+
+.user {
+    width: fit-content;
+    height: auto;
+    background-color: coral;
+    padding: 10px;
+}
+
+.body {
+    margin-top: 50px;
+    background-color: #fff;
+    padding: 15px;
+}
+
+.page_header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 3px solid #ddd;
+}
+
+.page_header a {
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 5px 15px;
+    border: 1px solid coral;
+    border-radius: 10px;
+    background-color: #ddd;
+}
+
+.btn-sm {
+    padding: 5px;
+    text-decoration: none;
+}
+
+.btn-danger {
+    /* background-color: red; */
+    border: 1px solid red;
+    border-radius: 6px;
+}
+
+.btn-primary {
+    /* background-color: red; */
+    border: 1px solid blue;
+    border-radius: 6px;
+}
+
+.btn-success {
+    /* background-color: red; */
+    border: 1px solid green;
+    border-radius: 6px;
+}
+
+.btn-danger {
+    /* background-color: red; */
+    border: 1px solid red;
+    border-radius: 6px;
+}
+
+.list_table {
+    margin-top: 10px;
+}
+
+.list_table table {
+    width: 100%;
+}
+
+.list_table table td {
+    font-size: 12px;
+}
+
+.list_table td,
+.list_table th {
+    padding: 10px 5px;
+    text-align: center;
+    border-bottom: 1px solid coral;
+}
+
+.add {
+    margin-top: 20px;
+    padding-bottom: 70px;
+}
+
+.input_cell {
+    margin-top: 20px;
+}
+
+.input_cell input {
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid coral;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+.submit {
+    width: fit-content;
+    float: right;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border: 1px solid coral;
+    background-color: coral;
+}
