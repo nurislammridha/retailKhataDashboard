@@ -202,3 +202,9 @@ body {
     border: 1px solid coral;
     background-color: coral;
 }
+
+.select {
+    margin-top: 10px;
+    border: 1px solid coral !important;
+    border-radius: 10px !important;
+}

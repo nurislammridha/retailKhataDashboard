@@ -10,13 +10,15 @@ const Menu = () => {
             {showMenu && (
                 <div className="menu_list">
                     <ul onClick={() => setShowMenu(!showMenu)}>
-                        <li onClick={() => navigate("/customer")}>Custome Info</li>
+                        <li onClick={() => navigate("/customer")}>Customer Info</li>
+                        <li onClick={() => navigate("/dealer")}>Dealer Info</li>
+                        <li onClick={() => navigate("/product")}>Product Info</li>
                         <li>Link</li>
                         <li>Link</li>
                         <li>Link</li>
                         <li>Link</li>
                         <li>Link</li>
-                        <li>Link</li>01754092903
+                        <li>Link</li>
                         <li>Link</li>
                         <li>Link</li>
                     </ul>

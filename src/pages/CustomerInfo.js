@@ -1,6 +1,8 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { showToast } from '../utils/ToastHelper'
+import { confirmAlert } from 'react-confirm-alert'
 
 const CustomerInfo = () => {
     const navigate = useNavigate()
@@ -13,10 +15,36 @@ const CustomerInfo = () => {
             })
         } catch (error) { }
     }
+    const deleteFromApi = (id) => {
+        const url = `${process.env.REACT_APP_API_URL}customer-info/${id}`;
+        try {
+            axios.delete(url).then((res) => {
+                console.log('res.data', res.data)
+                if (res?.data?.status) {
+                    showToast("success", res?.data?.message)
+                    apiCall()
+                }
+            })
+        } catch (error) { }
+    }
+    const handleDelete = (id) => {
+        confirmAlert({
+            title: "Confirm To Delete",
+            message: `Are you sure to delete this category?`,
+            buttons: [
+                {
+                    label: "Yes",
+                    onClick: () => { deleteFromApi(id) },
+                },
+                {
+                    label: "No",
+                },
+            ],
+        });
+    };
     useEffect(() => {
         apiCall()
     }, [])
-    console.log('list', list)
     return (
         <>
             <div className='page_header'>
@@ -31,7 +59,7 @@ const CustomerInfo = () => {
                         <th>Address</th>
                         <th style={{ width: "109px" }}>Action</th>
                     </tr>
-                    {list?.length > 0 && list.map(({ name, phoneNumber, address }, index) => (
+                    {list?.length > 0 && list.map(({ _id, name, phoneNumber, address }, index) => (
                         <tr>
                             <td>{name}</td>
                             <td>{phoneNumber}</td>
@@ -45,13 +73,13 @@ const CustomerInfo = () => {
                                 </a>
                                 <a
                                     className="btn-success btn-sm mr3"
-                                // onClick={() => handleDelete()}
+                                    onClick={() => navigate(`/customer/${_id}`)}
                                 >
                                     <i className="fa fa-pencil"></i>
                                 </a>
                                 <a
                                     className="btn-danger btn-sm"
-                                // onClick={() => handleDelete()}
+                                    onClick={() => handleDelete(_id)}
                                 >
                                     <i className="fa fa-trash"></i>
                                 </a>
