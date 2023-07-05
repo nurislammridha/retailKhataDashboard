@@ -56,12 +56,14 @@ const ProductInfo = () => {
           <tr>
             <th>Product Name</th>
             <th>Unit</th>
+            <th>$/u</th>
             <th style={{ width: "109px" }}>Action</th>
           </tr>
-          {list?.length > 0 && list.map(({ _id, name, unitName }, index) => (
+          {list?.length > 0 && list.map(({ _id, name, unitName, presentPricePerUnit }, index) => (
             <tr>
               <td>{name}</td>
               <td>{unitName}</td>
+              <td>{presentPricePerUnit}</td>
               <td>
                 <a
                   className="btn-primary btn-sm mr3"

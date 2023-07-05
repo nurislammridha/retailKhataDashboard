@@ -10,6 +10,7 @@ const ProductInfoAdd = () => {
     const [name, setName] = useState("")
     const [unitName, setUnitName] = useState("")
     const [unitID, setUnitID] = useState("")
+
     const submitCustomer = () => {
         if (name.length === 0) {
             showToast("error", "Name should n't be empty")
@@ -20,7 +21,7 @@ const ProductInfoAdd = () => {
         }
         const url = `${process.env.REACT_APP_API_URL}product-info`;
         try {
-            axios.post(url, { name, unitName, unitID }).then((res) => {
+            axios.post(url, { name, unitName, unitID, presentPricePerUnit: 0 }).then((res) => {
                 if (res?.data?.status) {
                     setName("")
                     setUnitName("")

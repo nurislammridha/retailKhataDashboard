@@ -15,6 +15,8 @@ import DealerInfoEdit from './pages/DealerInfoEdit';
 import ProductInfo from './pages/ProductInfo';
 import ProductInfoAdd from './pages/ProductInfoAdd';
 import ProductInfoEdit from './pages/ProductInfoEdit';
+import DailySellAdd from './pages/DailySellAdd';
+import DailySell from './pages/DailySell';
 function App() {
   return (
     <>
@@ -38,6 +40,9 @@ function App() {
             <Route path="/product" element={<ProductInfo />} />
             <Route path="/add-product" element={<ProductInfoAdd />} />
             <Route path="/product/:id" element={<ProductInfoEdit />} />
+            <Route path="/sell" element={<DailySell />} />
+            <Route path="/add-sell" element={<DailySellAdd />} />
+            <Route path="/sell/:id" element={<ProductInfoEdit />} />
             <Route path="/unit" element={<UnitInfo />} />
             <Route path="/add-unit" element={<UnitInfoAdd />} />
           </Routes>

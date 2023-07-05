@@ -7,3 +7,32 @@ export const unitList = () => {
     ]
     return list
 }
+export const getProductOption = (data) => {
+    const arr = [];
+    if (data && data.length > 0) {
+        data.forEach((item) => {
+            const obj = {
+                label: item.name,
+                value: item._id,
+                unitName: item.unitName,
+                unitID: item.unitID,
+                presentPricePerUnit: item.presentPricePerUnit,
+            };
+            arr.push(obj);
+        });
+    }
+    return arr;
+};
+export const getCustomerOption = (data) => {
+    const arr = [];
+    if (data && data.length > 0) {
+        data.forEach((item) => {
+            const obj = {
+                label: item.name,
+                value: item._id,
+            };
+            arr.push(obj);
+        });
+    }
+    return arr;
+};

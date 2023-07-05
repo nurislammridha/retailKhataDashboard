@@ -13,6 +13,7 @@ const Menu = () => {
                         <li onClick={() => navigate("/customer")}>Customer Info</li>
                         <li onClick={() => navigate("/dealer")}>Dealer Info</li>
                         <li onClick={() => navigate("/product")}>Product Info</li>
+                        <li onClick={() => navigate("/sell")}>Daily Sell</li>
                         <li>Link</li>
                         <li>Link</li>
                         <li>Link</li>
