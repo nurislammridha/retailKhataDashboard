@@ -1,22 +1,24 @@
-import { Route, Routes } from 'react-router-dom';
-import Menu from './components/Menu';
-import Dashboard from './pages/Dashboard';
+import { Route, Routes } from "react-router-dom";
+import Menu from "./components/Menu";
+import Dashboard from "./pages/Dashboard";
 import "font-awesome/css/font-awesome.min.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import './style.css'
-import UnitInfo from './pages/UnitInfo';
-import UnitInfoAdd from './pages/UnitInfoAdd';
-import CustomerInfo from './pages/CustomerInfo';
-import CustomerInfoAdd from './pages/CustomerInfoAdd';
-import CustomerInfoEdit from './pages/CustomerInfoEdit';
-import DealerInfo from './pages/DealerInfo';
-import DealerInfoAdd from './pages/DealerInfoAdd';
-import DealerInfoEdit from './pages/DealerInfoEdit';
-import ProductInfo from './pages/ProductInfo';
-import ProductInfoAdd from './pages/ProductInfoAdd';
-import ProductInfoEdit from './pages/ProductInfoEdit';
-import DailySellAdd from './pages/DailySellAdd';
-import DailySell from './pages/DailySell';
+import "./style.css";
+import UnitInfo from "./pages/UnitInfo";
+import UnitInfoAdd from "./pages/UnitInfoAdd";
+import CustomerInfo from "./pages/CustomerInfo";
+import CustomerInfoAdd from "./pages/CustomerInfoAdd";
+import CustomerInfoEdit from "./pages/CustomerInfoEdit";
+import DealerInfo from "./pages/DealerInfo";
+import DealerInfoAdd from "./pages/DealerInfoAdd";
+import DealerInfoEdit from "./pages/DealerInfoEdit";
+import ProductInfo from "./pages/ProductInfo";
+import ProductInfoAdd from "./pages/ProductInfoAdd";
+import ProductInfoEdit from "./pages/ProductInfoEdit";
+import DailySellAdd from "./pages/DailySellAdd";
+import DailySell from "./pages/DailySell";
+import DailyBuyAdd from "./pages/DailyBuyAdd";
+import DailyBuy from "./pages/DailyBuy";
 function App() {
   return (
     <>
@@ -43,6 +45,9 @@ function App() {
             <Route path="/sell" element={<DailySell />} />
             <Route path="/add-sell" element={<DailySellAdd />} />
             <Route path="/sell/:id" element={<ProductInfoEdit />} />
+            <Route path="/buy" element={<DailyBuy />} />
+            <Route path="/add-buy" element={<DailyBuyAdd />} />
+            <Route path="/buy/:id" element={<ProductInfoEdit />} />
             <Route path="/unit" element={<UnitInfo />} />
             <Route path="/add-unit" element={<UnitInfoAdd />} />
           </Routes>

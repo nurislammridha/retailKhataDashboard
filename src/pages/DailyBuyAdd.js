@@ -4,8 +4,12 @@ import { useNavigate } from "react-router-dom";
 import { showToast } from "../utils/ToastHelper";
 import Select from "react-select";
 import axios from "axios";
-import { getCustomerOption, getProductOption } from "../assets/Function";
-const DailySellAdd = () => {
+import {
+  getCustomerOption,
+  getDealerOption,
+  getProductOption,
+} from "../assets/Function";
+const DailyBuyAdd = () => {
   const navigate = useNavigate();
   const d = new Date();
   const twoDigit = (n) => {
@@ -14,8 +18,8 @@ const DailySellAdd = () => {
   const [date, setDate] = useState(
     `${d.getFullYear()}-${twoDigit(d.getMonth() + 1)}-${twoDigit(d.getDate())}`
   );
-  const [buyerName, setBuyerName] = useState("");
-  const [buyerID, setBuyerID] = useState("");
+  const [dealerName, setDealerName] = useState("");
+  const [dealerID, setDealerID] = useState("");
   const [productName, setProductName] = useState("");
   const [productID, setProductID] = useState("");
   const [unitName, setUnitName] = useState("");
@@ -25,14 +29,12 @@ const DailySellAdd = () => {
   const [cash, setCash] = useState(0);
   const [due, setDue] = useState(-1);
   const [details, setDetails] = useState("Nothing");
-  const [presentPricePerUnit, setPresentPricePerUnit] = useState(0);
   const [productList, setProductList] = useState([]);
-  const [customerList, setCustomerList] = useState([]);
-  const [buyerPhone, setBuyerPhone] = useState("");
-  const [buyerAddress, setBuyerAddress] = useState("");
+  const [dealerList, setDealerList] = useState([]);
+  const [otherCost, setOtherCost] = useState(0);
   const submitSell = () => {
-    if (buyerName.length === 0) {
-      showToast("error", "Customer should n't be empty");
+    if (dealerName.length === 0) {
+      showToast("error", "Dealer should n't be empty");
       return 0;
     } else if (productName.length === 0) {
       showToast("error", "Product should n't be empty");
@@ -50,21 +52,20 @@ const DailySellAdd = () => {
     const postData = {
       date,
       timeStamp: new Date(date).getTime(),
-      buyerName: buyerName.split("(")[0],
-      buyerID,
-      buyerPhone,
-      buyerAddress,
+      dealerName,
+      dealerID,
       productName,
       productID,
       unitName,
       unitID,
       quantity,
+      pricePerUnit: Math.round(((totalPrice + otherCost) / quantity) * 10) / 10,
       totalPrice,
       cash,
       due,
       details,
-      profit: totalPrice - presentPricePerUnit * quantity,
-      isPaid: totalPrice === cash,
+      otherCost,
+      isPaid: totalPrice + otherCost === cash,
       paymentHistory: { paymentDate: date, amount: cash },
     };
     const url = `${process.env.REACT_APP_API_URL}daily-sell`;
@@ -72,8 +73,8 @@ const DailySellAdd = () => {
       axios.post(url, postData).then((res) => {
         if (res?.data?.status) {
           showToast("success", res?.data?.message);
-          setBuyerName("");
-          setBuyerID("");
+          setDealerName("");
+          setDealerID("");
           setProductName("");
           setProductID("");
           setUnitName("");
@@ -83,9 +84,6 @@ const DailySellAdd = () => {
           setCash(0);
           setDue(-1);
           setDetails("Nothing");
-          setPresentPricePerUnit(0);
-          setBuyerPhone("");
-          setBuyerAddress("");
         }
       });
     } catch (error) {}
@@ -100,48 +98,46 @@ const DailySellAdd = () => {
       });
     } catch (error) {}
   };
-  const getCustomerList = () => {
-    const url = `${process.env.REACT_APP_API_URL}customer-info`;
+  const getDealerList = () => {
+    const url = `${process.env.REACT_APP_API_URL}dealer-info`;
     try {
       axios.get(url, {}).then((res) => {
         if (res?.data?.status) {
-          setCustomerList(getCustomerOption(res?.data?.result));
+          setDealerList(getDealerOption(res?.data?.result));
         }
       });
     } catch (error) {}
   };
   useEffect(() => {
     getProductList();
-    getCustomerList();
+    getDealerList();
   }, []);
-  console.log("buyerName", buyerName.split("(")[0]);
+
   return (
     <>
       <div className="page_header">
-        <h3>Add Sell</h3>
-        <a onClick={() => navigate("/sell")}>List</a>
+        <h3>Add Buying Product</h3>
+        <a onClick={() => navigate("/buy")}>List</a>
       </div>
       <div className="add">
         <div className="input_cell">
-          <h4>Selling Date</h4>
+          <h4>Buying Date</h4>
           <input
-            placeholder="enter selling date"
+            placeholder="enter buying date"
             value={date}
             type="date"
             onChange={(e) => setDate(e.target.value)}
           />
         </div>
         <div className="input_cell">
-          <h4>Select Customer</h4>
+          <h4>Select Dealer</h4>
           <Select
             className="select"
-            options={customerList}
-            value={{ label: buyerName }}
+            options={dealerList}
+            value={{ label: dealerName }}
             onChange={(e) => {
-              setBuyerName(e.label);
-              setBuyerID(e.value);
-              setBuyerPhone(e.buyerPhone);
-              setBuyerAddress(e.buyerAddress);
+              setDealerName(e.label);
+              setDealerID(e.value);
             }}
           />
         </div>
@@ -156,14 +152,12 @@ const DailySellAdd = () => {
               setProductID(e.value);
               setUnitName(e.unitName);
               setUnitID(e.unitID);
-              setPresentPricePerUnit(e.presentPricePerUnit);
             }}
           />
         </div>
         <div className="input_cell">
           <h4>Quantity</h4>
           <input
-            name="quantity"
             placeholder="enter quantity"
             value={quantity}
             type="number"
@@ -172,53 +166,50 @@ const DailySellAdd = () => {
         </div>
         <div className="input_cell">
           <h3>
-            Current rate {quantity}X{presentPricePerUnit}=
-            {quantity * presentPricePerUnit}
+            Price per {unitName} =
+            {Math.round(((totalPrice + otherCost) / quantity) * 10) / 10}
           </h3>
-          <h3>
-            {totalPrice - quantity * presentPricePerUnit > 0
-              ? "Profit"
-              : "Loss"}
-            ={Math.abs(totalPrice - presentPricePerUnit * quantity)} Taka
-          </h3>
-          <h3>{totalPrice === cash ? "FULL PAID" : "UNPAID"}</h3>
+          <h3>{totalPrice + otherCost === cash ? "FULL PAID" : "UNPAID"}</h3>
         </div>
         <div className="input_cell">
-          <h4>Sell Price</h4>
+          <h4>Total Price</h4>
           <input
-            name="totalPrice"
             placeholder="enter sell price"
             value={totalPrice}
             type="number"
             onChange={(e) => {
               setTotalPrice(parseInt(e.target.value));
-              setDue(-1);
+              setCash(-1);
+            }}
+          />
+        </div>
+        <div className="input_cell">
+          <h4>Other Cost</h4>
+          <input
+            placeholder="enter sell price"
+            value={otherCost}
+            type="number"
+            onChange={(e) => {
+              setOtherCost(parseInt(e.target.value));
+              setCash(-1);
             }}
           />
         </div>
         <div className="input_cell">
           <h4>Cash</h4>
           <input
-            name="cash"
             placeholder="enter cash"
             value={cash}
             type="number"
-            disabled
-            // onChange={(e) => setCash(e.target.value)}
+            onChange={(e) => {
+              setCash(parseInt(e.target.value));
+              setDue(totalPrice + otherCost - parseInt(e.target.value));
+            }}
           />
         </div>
         <div className="input_cell">
           <h4>Due</h4>
-          <input
-            name="due"
-            placeholder="enter cash"
-            value={due}
-            type="number"
-            onChange={(e) => {
-              setDue(parseInt(e.target.value));
-              setCash(totalPrice - parseInt(e.target.value));
-            }}
-          />
+          <input placeholder="enter cash" value={due} type="number" disabled />
         </div>
         <div className="input_cell">
           <h4>Note</h4>
@@ -246,4 +237,4 @@ const DailySellAdd = () => {
   );
 };
 
-export default DailySellAdd;
+export default DailyBuyAdd;
