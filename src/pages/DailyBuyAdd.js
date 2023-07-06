@@ -32,6 +32,33 @@ const DailyBuyAdd = () => {
   const [productList, setProductList] = useState([]);
   const [dealerList, setDealerList] = useState([]);
   const [otherCost, setOtherCost] = useState(0);
+  const updatePresentPricePerUnit = (message) => {
+    const url = `${process.env.REACT_APP_API_URL}product-info/presentPricePerUnit/${productID}`;
+    try {
+      axios
+        .put(url, {
+          presentPricePerUnit:
+            Math.round(((totalPrice + otherCost) / quantity) * 10) / 10,
+        })
+        .then((res) => {
+          if (res?.data?.status) {
+            showToast("success", message);
+            // showToast("success", res?.data?.message);
+            setDealerName("");
+            setDealerID("");
+            setProductName("");
+            setProductID("");
+            setUnitName("");
+            setUnitID("");
+            setQuantity(0);
+            setTotalPrice(0);
+            setCash(0);
+            setDue(-1);
+            setDetails("Nothing");
+          }
+        });
+    } catch (error) {}
+  };
   const submitSell = () => {
     if (dealerName.length === 0) {
       showToast("error", "Dealer should n't be empty");
@@ -43,7 +70,7 @@ const DailyBuyAdd = () => {
       showToast("error", "Invalid Quantity");
       return 0;
     } else if (totalPrice <= 0) {
-      showToast("error", "Invalid Sell Price");
+      showToast("error", "Invalid Buying Price");
       return 0;
     } else if (due < 0) {
       showToast("error", "Invalid due");
@@ -68,22 +95,13 @@ const DailyBuyAdd = () => {
       isPaid: totalPrice + otherCost === cash,
       paymentHistory: { paymentDate: date, amount: cash },
     };
-    const url = `${process.env.REACT_APP_API_URL}daily-sell`;
+    const url = `${process.env.REACT_APP_API_URL}daily-buy`;
     try {
       axios.post(url, postData).then((res) => {
         if (res?.data?.status) {
-          showToast("success", res?.data?.message);
-          setDealerName("");
-          setDealerID("");
-          setProductName("");
-          setProductID("");
-          setUnitName("");
-          setUnitID("");
-          setQuantity(0);
-          setTotalPrice(0);
-          setCash(0);
-          setDue(-1);
-          setDetails("Nothing");
+          // showToast("success", res?.data?.message);
+
+          updatePresentPricePerUnit(res?.data?.message);
         }
       });
     } catch (error) {}

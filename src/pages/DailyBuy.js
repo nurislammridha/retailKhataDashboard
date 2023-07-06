@@ -7,7 +7,13 @@ import { confirmAlert } from "react-confirm-alert";
 const DailyBuy = () => {
   const navigate = useNavigate();
   const [list, setList] = useState([]);
-  const [date, setDate] = useState("");
+  const d = new Date();
+  const twoDigit = (n) => {
+    return n.length > 1 ? n : "0" + n;
+  };
+  const [date, setDate] = useState(
+    `${d.getFullYear()}-${twoDigit(d.getMonth() + 1)}-${twoDigit(d.getDate())}`
+  );
   const searchByDate = () => {
     const url = `${process.env.REACT_APP_API_URL}daily-buy/date/${date}`;
     try {
@@ -17,13 +23,13 @@ const DailyBuy = () => {
     } catch (error) {}
   };
   const deleteFromApi = (id) => {
-    const url = `${process.env.REACT_APP_API_URL}buy-info/${id}`;
+    const url = `${process.env.REACT_APP_API_URL}daily-buy/${id}`;
     try {
       axios.delete(url).then((res) => {
         console.log("res.data", res.data);
         if (res?.data?.status) {
           showToast("success", res?.data?.message);
-          // apiCall()
+          searchByDate();
         }
       });
     } catch (error) {}
@@ -46,7 +52,7 @@ const DailyBuy = () => {
     });
   };
   useEffect(() => {
-    // apiCall()
+    searchByDate();
   }, []);
   return (
     <>
@@ -78,27 +84,38 @@ const DailyBuy = () => {
       <div className="list_table">
         <table>
           <tr>
-            <th>Customer</th>
+            <th>Dealer</th>
             <th>Product</th>
+            <th>Qua</th>
             <th>Pri</th>
             <th>Cash</th>
             <th>Due</th>
-            <th>Pr</th>
+            <th>Oth.</th>
             <th style={{ width: "109px" }}>Action</th>
           </tr>
           {list?.length > 0 &&
             list.map(
               (
-                { _id, buyerName, productName, totalPrice, cash, due, profit },
+                {
+                  _id,
+                  dealerName,
+                  productName,
+                  totalPrice,
+                  cash,
+                  due,
+                  quantity,
+                  otherCost,
+                },
                 index
               ) => (
                 <tr>
-                  <td>{buyerName}</td>
+                  <td>{dealerName}</td>
                   <td>{productName}</td>
+                  <td>{quantity}</td>
                   <td>{totalPrice}</td>
                   <td>{cash}</td>
                   <td>{due}</td>
-                  <td>{profit}</td>
+                  <td>{otherCost}</td>
                   <td>
                     <a
                       className="btn-primary btn-sm mr3"

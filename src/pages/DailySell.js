@@ -7,7 +7,13 @@ import { confirmAlert } from "react-confirm-alert";
 const DailySell = () => {
   const navigate = useNavigate();
   const [list, setList] = useState([]);
-  const [date, setDate] = useState("");
+  const d = new Date();
+  const twoDigit = (n) => {
+    return n.length > 1 ? n : "0" + n;
+  };
+  const [date, setDate] = useState(
+    `${d.getFullYear()}-${twoDigit(d.getMonth() + 1)}-${twoDigit(d.getDate())}`
+  );
   const searchByDate = () => {
     const url = `${process.env.REACT_APP_API_URL}daily-sell/date/${date}`;
     try {
@@ -46,7 +52,7 @@ const DailySell = () => {
     });
   };
   useEffect(() => {
-    // apiCall()
+    searchByDate();
   }, []);
   return (
     <>
