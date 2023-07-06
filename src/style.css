@@ -193,12 +193,28 @@ body {
     font-size: 15px;
 }
 
+.pay_input {
+    padding: 6px 3px;
+    width: 65px;
+    border: 1px solid coral;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
 .submit {
     width: fit-content;
     float: right;
     padding: 10px;
     border-radius: 10px;
     margin-bottom: 10px;
+    border: 1px solid coral;
+    background-color: coral;
+}
+
+.submit_pay {
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
     border: 1px solid coral;
     background-color: coral;
 }

@@ -67,7 +67,7 @@ const CustomerInfo = () => {
                             <td>
                                 <a
                                     className="btn-primary btn-sm mr3"
-                                // onClick={() => handleDelete()}
+                                    onClick={() => navigate(`/customer-pay/${_id}`)}
                                 >
                                     <i className="fa fa-eye"></i>
                                 </a>

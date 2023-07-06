@@ -20,7 +20,7 @@ const DailyBuy = () => {
       axios.get(url).then((res) => {
         setList(res?.data?.result);
       });
-    } catch (error) {}
+    } catch (error) { }
   };
   const deleteFromApi = (id) => {
     const url = `${process.env.REACT_APP_API_URL}daily-buy/${id}`;
@@ -32,7 +32,7 @@ const DailyBuy = () => {
           searchByDate();
         }
       });
-    } catch (error) {}
+    } catch (error) { }
   };
   const handleDelete = (id) => {
     confirmAlert({
@@ -119,13 +119,13 @@ const DailyBuy = () => {
                   <td>
                     <a
                       className="btn-primary btn-sm mr3"
-                      // onClick={() => handleDelete()}
+                    // onClick={() => handleDelete()}
                     >
                       <i className="fa fa-eye"></i>
                     </a>
                     <a
                       className="btn-success btn-sm mr3"
-                      onClick={() => navigate(`/sell/${_id}`)}
+                    // onClick={() => navigate(`/sell/${_id}`)}
                     >
                       <i className="fa fa-pencil"></i>
                     </a>
