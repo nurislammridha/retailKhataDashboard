@@ -67,7 +67,7 @@ const ProductInfo = () => {
               <td>
                 <a
                   className="btn-primary btn-sm mr3"
-                // onClick={() => handleDelete()}
+                  onClick={() => navigate(`/product-detail/${_id}`)}
                 >
                   <i className="fa fa-eye"></i>
                 </a>

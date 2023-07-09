@@ -20,6 +20,7 @@ import DailySell from "./pages/DailySell";
 import DailyBuyAdd from "./pages/DailyBuyAdd";
 import DailyBuy from "./pages/DailyBuy";
 import CustomerPayment from "./pages/CustomerPayment";
+import ProductDetails from "./pages/ProductDetails";
 function App() {
   return (
     <>
@@ -42,6 +43,7 @@ function App() {
             <Route path="/add-dealer" element={<DealerInfoAdd />} />
             <Route path="/dealer/:id" element={<DealerInfoEdit />} />
             <Route path="/product" element={<ProductInfo />} />
+            <Route path="/product-detail/:id" element={<ProductDetails />} />
             <Route path="/add-product" element={<ProductInfoAdd />} />
             <Route path="/product/:id" element={<ProductInfoEdit />} />
             <Route path="/sell" element={<DailySell />} />

@@ -51,3 +51,26 @@ export const getDealerOption = (data) => {
   }
   return arr;
 };
+export const getTotalDue = (data) => {
+  let s = 0;
+
+  if (data && data.length > 0) {
+    data.forEach((item) => {
+      // console.log('item', item)
+      s = item?.due + s
+      // console.log('s', s)
+    });
+  }
+  return s;
+};
+export const getTotalPay = (data) => {
+  let s = 0;
+  if (data && data.length > 0) {
+    data.forEach((item) => {
+      console.log('item', item)
+      s = item?.val + s
+      // console.log('s', s)
+    });
+  }
+  return s;
+};
