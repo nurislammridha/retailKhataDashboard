@@ -3,14 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { showToast } from "../utils/ToastHelper";
 import { confirmAlert } from "react-confirm-alert";
+import { twoDigit } from "../assets/Function";
 
 const DailyBuy = () => {
   const navigate = useNavigate();
   const [list, setList] = useState([]);
   const d = new Date();
-  const twoDigit = (n) => {
-    return n.length > 1 ? n : "0" + n;
-  };
   const [date, setDate] = useState(
     `${d.getFullYear()}-${twoDigit(d.getMonth() + 1)}-${twoDigit(d.getDate())}`
   );

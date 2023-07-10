@@ -4,13 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { showToast } from "../utils/ToastHelper";
 import Select from "react-select";
 import axios from "axios";
-import { getCustomerOption, getProductOption } from "../assets/Function";
+import { getCustomerOption, getProductOption, twoDigit } from "../assets/Function";
 const DailySellAdd = () => {
   const navigate = useNavigate();
   const d = new Date();
-  const twoDigit = (n) => {
-    return n.length > 1 ? n : "0" + n;
-  };
+
   const [date, setDate] = useState(
     `${d.getFullYear()}-${twoDigit(d.getMonth() + 1)}-${twoDigit(d.getDate())}`
   );
@@ -88,7 +86,7 @@ const DailySellAdd = () => {
           setBuyerAddress("");
         }
       });
-    } catch (error) {}
+    } catch (error) { }
   };
   const getProductList = () => {
     const url = `${process.env.REACT_APP_API_URL}product-info`;
@@ -98,7 +96,7 @@ const DailySellAdd = () => {
           setProductList(getProductOption(res?.data?.result));
         }
       });
-    } catch (error) {}
+    } catch (error) { }
   };
   const getCustomerList = () => {
     const url = `${process.env.REACT_APP_API_URL}customer-info`;
@@ -108,7 +106,7 @@ const DailySellAdd = () => {
           setCustomerList(getCustomerOption(res?.data?.result));
         }
       });
-    } catch (error) {}
+    } catch (error) { }
   };
   useEffect(() => {
     getProductList();
@@ -204,7 +202,7 @@ const DailySellAdd = () => {
             value={cash}
             type="number"
             disabled
-            // onChange={(e) => setCash(e.target.value)}
+          // onChange={(e) => setCash(e.target.value)}
           />
         </div>
         <div className="input_cell">

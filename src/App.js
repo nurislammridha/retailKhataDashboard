@@ -21,6 +21,8 @@ import DailyBuyAdd from "./pages/DailyBuyAdd";
 import DailyBuy from "./pages/DailyBuy";
 import CustomerPayment from "./pages/CustomerPayment";
 import ProductDetails from "./pages/ProductDetails";
+import CrDr from "./pages/CrDR";
+import CrDrAdd from "./pages/CrDrAdd";
 function App() {
   return (
     <>
@@ -54,6 +56,8 @@ function App() {
             <Route path="/buy/:id" element={<ProductInfoEdit />} />
             <Route path="/unit" element={<UnitInfo />} />
             <Route path="/add-unit" element={<UnitInfoAdd />} />
+            <Route path="/crdr" element={<CrDr />} />
+            <Route path="/add-crdr" element={<CrDrAdd />} />
           </Routes>
         </div>
       </div>

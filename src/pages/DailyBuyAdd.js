@@ -8,13 +8,12 @@ import {
   getCustomerOption,
   getDealerOption,
   getProductOption,
+  twoDigit,
 } from "../assets/Function";
 const DailyBuyAdd = () => {
   const navigate = useNavigate();
   const d = new Date();
-  const twoDigit = (n) => {
-    return n.length > 1 ? n : "0" + n;
-  };
+
   const [date, setDate] = useState(
     `${d.getFullYear()}-${twoDigit(d.getMonth() + 1)}-${twoDigit(d.getDate())}`
   );
@@ -57,7 +56,7 @@ const DailyBuyAdd = () => {
             setDetails("Nothing");
           }
         });
-    } catch (error) {}
+    } catch (error) { }
   };
   const submitSell = () => {
     if (dealerName.length === 0) {
@@ -104,7 +103,7 @@ const DailyBuyAdd = () => {
           updatePresentPricePerUnit(res?.data?.message);
         }
       });
-    } catch (error) {}
+    } catch (error) { }
   };
   const getProductList = () => {
     const url = `${process.env.REACT_APP_API_URL}product-info`;
@@ -114,7 +113,7 @@ const DailyBuyAdd = () => {
           setProductList(getProductOption(res?.data?.result));
         }
       });
-    } catch (error) {}
+    } catch (error) { }
   };
   const getDealerList = () => {
     const url = `${process.env.REACT_APP_API_URL}dealer-info`;
@@ -124,7 +123,7 @@ const DailyBuyAdd = () => {
           setDealerList(getDealerOption(res?.data?.result));
         }
       });
-    } catch (error) {}
+    } catch (error) { }
   };
   useEffect(() => {
     getProductList();

@@ -1,23 +1,34 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { getTotalDue, getTotalPay } from '../assets/Function';
+import { getTotalBuy, getTotalDue, getTotalPay, getTotalSell } from '../assets/Function';
 import { showToast } from '../utils/ToastHelper';
 
 const ProductDetails = () => {
     const navigate = useNavigate()
     const d = new Date();
-    const twoDigit = (n) => {
-        return n.length > 1 ? n : "0" + n;
-    };
     let { id } = useParams();
+    const [totalBuy, setTotalBuy] = useState({ price: 0, quantity: 0, unit: "KG", product: "" })
+    const [totalSell, setTotalSell] = useState({ price: 0, quantity: 0 })
     const [list, setList] = useState([])
     const buyerInfo = () => {
         const url = `${process.env.REACT_APP_API_URL}daily-buy/product/${id}`;
         try {
             axios.get(url).then((res) => {
                 if (res?.data?.status) {
-                    console.log('res?.data', res?.data)
+                    setTotalBuy(getTotalBuy(res?.data?.result))
+                    // console.log('res?.data', res?.data)
+                }
+            });
+        } catch (error) { }
+    };
+    const sellerInfo = () => {
+        const url = `${process.env.REACT_APP_API_URL}daily-sell/product/${id}`;
+        try {
+            axios.get(url).then((res) => {
+                if (res?.data?.status) {
+                    setTotalSell(getTotalSell(res?.data?.result))
+                    // console.log('res?.data', res?.data)
                 }
             });
         } catch (error) { }
@@ -25,6 +36,7 @@ const ProductDetails = () => {
 
     useEffect(() => {
         buyerInfo()
+        sellerInfo()
     }, [])
 
     // console.log('al', alreadyPaid)
@@ -35,25 +47,25 @@ const ProductDetails = () => {
                 <a onClick={() => navigate("/product")}>List</a>
             </div>
             <div className="page_header mt20">
-                <h5>Product Name</h5>
-                <h5>Product Unit</h5>
+                <h5>Product:{totalBuy.product}</h5>
+                <h5>Unit Name:{totalBuy.unit}</h5>
             </div>
             <div className="list_table">
                 <table>
                     <tr>
                         <th>Total Buy</th>
-                        <td>1233 KG</td>
-                        <td>13/=</td>
+                        <td>{totalBuy.quantity} {totalBuy.unit}</td>
+                        <td>{totalBuy.price}&#2547;</td>
                     </tr>
                     <tr>
                         <th>Total Sell</th>
-                        <td>1233 KG</td>
-                        <td>123/=</td>
+                        <td>{totalSell.quantity} {totalBuy.unit}</td>
+                        <td>{totalSell.price}&#2547;</td>
                     </tr>
                     <tr>
                         <th>Status</th>
-                        <td>233 Kg</td>
-                        <td>2332taka</td>
+                        <td>{totalBuy.quantity - totalSell.quantity} {totalBuy.unit}</td>
+                        <td>{totalSell.price - totalBuy.price}&#2547;</td>
                     </tr>
 
                 </table>

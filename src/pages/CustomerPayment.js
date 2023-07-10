@@ -1,15 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { getTotalDue, getTotalPay } from '../assets/Function';
+import { getTotalDue, getTotalPay, twoDigit } from '../assets/Function';
 import { showToast } from '../utils/ToastHelper';
 
 const CustomerPayment = () => {
     const navigate = useNavigate()
     const d = new Date();
-    const twoDigit = (n) => {
-        return n.length > 1 ? n : "0" + n;
-    };
     let { id } = useParams();
     const [pay, setPay] = useState([])
     const [list, setList] = useState([])

@@ -3,14 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { showToast } from "../utils/ToastHelper";
 import { confirmAlert } from "react-confirm-alert";
+import { twoDigit } from "../assets/Function";
 
 const DailySell = () => {
   const navigate = useNavigate();
   const [list, setList] = useState([]);
   const d = new Date();
-  const twoDigit = (n) => {
-    return n.length > 1 ? n : "0" + n;
-  };
   const [date, setDate] = useState(
     `${d.getFullYear()}-${twoDigit(d.getMonth() + 1)}-${twoDigit(d.getDate())}`
   );
@@ -20,7 +18,7 @@ const DailySell = () => {
       axios.get(url).then((res) => {
         setList(res?.data?.result);
       });
-    } catch (error) {}
+    } catch (error) { }
   };
   const deleteFromApi = (id) => {
     const url = `${process.env.REACT_APP_API_URL}daily-sell/${id}`;
@@ -32,7 +30,7 @@ const DailySell = () => {
           searchByDate();
         }
       });
-    } catch (error) {}
+    } catch (error) { }
   };
   const handleDelete = (id) => {
     confirmAlert({
@@ -119,13 +117,13 @@ const DailySell = () => {
                   <td>
                     <a
                       className="btn-primary btn-sm mr3"
-                      // onClick={() => handleDelete()}
+                    // onClick={() => handleDelete()}
                     >
                       <i className="fa fa-eye"></i>
                     </a>
                     <a
                       className="btn-success btn-sm mr3"
-                      //   onClick={() => navigate(`/sell/${_id}`)}
+                    //   onClick={() => navigate(`/sell/${_id}`)}
                     >
                       <i className="fa fa-pencil"></i>
                     </a>

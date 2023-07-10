@@ -17,14 +17,8 @@ const Menu = () => {
             <li onClick={() => navigate("/product")}>Product Info</li>
             <li onClick={() => navigate("/sell")}>Daily Sell</li>
             <li onClick={() => navigate("/buy")}>Daily Buy</li>
-            <li>Link</li>
-            <li>Link</li>
-            <li>Link</li>
-            <li>Link</li>
-            <li>Link</li>
-            <li>Link</li>
-            <li>Link</li>
-            <li>Link</li>
+            <li onClick={() => navigate("/crdr")}>Joma/Uttolon</li>
+
           </ul>
         </div>
       )}
