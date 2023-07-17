@@ -168,19 +168,7 @@ const DailySellAdd = () => {
             onChange={(e) => setQuantity(parseInt(e.target.value))}
           />
         </div>
-        <div className="input_cell">
-          <h3>
-            Current rate {quantity}X{presentPricePerUnit}=
-            {quantity * presentPricePerUnit}
-          </h3>
-          <h3>
-            {totalPrice - quantity * presentPricePerUnit > 0
-              ? "Profit"
-              : "Loss"}
-            ={Math.abs(totalPrice - presentPricePerUnit * quantity)} Taka
-          </h3>
-          <h3>{totalPrice === cash ? "FULL PAID" : "UNPAID"}</h3>
-        </div>
+
         <div className="input_cell">
           <h4>Sell Price</h4>
           <input
@@ -228,6 +216,20 @@ const DailySellAdd = () => {
               setDetails(e.target.value);
             }}
           />
+        </div>
+        <div className="input_cell">
+          <h3>{buyerName},{productName}</h3>
+          <h3>
+            Current rate {quantity}X{presentPricePerUnit}=
+            {(quantity * presentPricePerUnit).toFixed(2)}
+          </h3>
+          <h3>
+            {totalPrice - quantity * presentPricePerUnit > 0
+              ? "Profit"
+              : "Loss"}
+            ={(Math.abs(totalPrice - presentPricePerUnit * quantity)).toFixed(2)} Taka
+          </h3>
+          <h3>{totalPrice === cash ? "FULL PAID" : "UNPAID"}</h3>
         </div>
         <div className="input_cell">
           <a

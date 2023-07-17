@@ -45,7 +45,7 @@ const Dashboard = () => {
         <>
             <div className="page_header">
                 <h3>Balance</h3>
-                <h2>23&#2547;</h2>
+                <h2>00&#2547;</h2>
             </div>
             <div className="list_table">
                 <table>
@@ -55,7 +55,7 @@ const Dashboard = () => {
                     </tr>
                     <tr>
                         <th>Hand Cash</th>
-                        <td>{(crDr.freshInvest + crDr.internalIncome + sellingInfo.totalSell) - (buyingInfo.totalBuy + buyingInfo.totalCost + crDr.businessCost)}&#2547;</td>
+                        <td>{(crDr.freshInvest + crDr.internalIncome + sellingInfo.totalNagad) - (buyingInfo.totalBuy + buyingInfo.totalCost + crDr.businessCost)}&#2547;</td>
                     </tr>
                 </table>
             </div>
@@ -79,7 +79,7 @@ const Dashboard = () => {
                     </tr>
                     <tr>
                         <th>Today Profit</th>
-                        <td>{sellingInfo.todayProfit}&#2547;</td>
+                        <td>{sellingInfo.todayProfit.toFixed(2)}&#2547;</td>
                     </tr>
                 </table>
             </div>
@@ -104,7 +104,7 @@ const Dashboard = () => {
                     </tr>
                     <tr>
                         <th>Monthly Profit</th>
-                        <td>{sellingInfo.monthlyProfit}&#2547;</td>
+                        <td>{sellingInfo.monthlyProfit.toFixed(2)}&#2547;</td>
                     </tr>
                 </table>
             </div>
@@ -129,7 +129,7 @@ const Dashboard = () => {
                     </tr>
                     <tr>
                         <th>Total Profit/Loss(Not Actual)</th>
-                        <td>{sellingInfo.totalProfit}&#2547;</td>
+                        <td>{sellingInfo.totalProfit.toFixed(2)}&#2547;</td>
                     </tr>
                     <tr>
                         <th>Net Profit/Loss(Stock and baki hisaber baire)</th>

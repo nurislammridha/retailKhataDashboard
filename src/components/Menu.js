@@ -12,6 +12,7 @@ const Menu = () => {
       {showMenu && (
         <div className="menu_list">
           <ul onClick={() => setShowMenu(!showMenu)}>
+            <li onClick={() => navigate("/")}>Dashboard</li>
             <li onClick={() => navigate("/customer")}>Customer Info</li>
             <li onClick={() => navigate("/dealer")}>Dealer Info</li>
             <li onClick={() => navigate("/product")}>Product Info</li>

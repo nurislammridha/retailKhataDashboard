@@ -73,9 +73,9 @@ const CustomerPayment = () => {
                 <a onClick={() => navigate("/customer")}>List</a>
             </div>
             <div className="page_header mt20">
-                <h5>Nurislam</h5>
-                <h5>Bagmara</h5>
-                <h5>01753109207</h5>
+                <h5>{list[0]?.buyerName}</h5>
+                <h5>{list[0]?.buyerAddress}</h5>
+                <h5>{list[0]?.buyerPhone}</h5>
             </div>
             <div className="list_table">
                 <table>

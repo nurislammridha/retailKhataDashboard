@@ -27,9 +27,9 @@ const CustomerInfo = () => {
             })
         } catch (error) { }
     }
-    const handleDelete = (id) => {
+    const handleDelete = (id, name) => {
         confirmAlert({
-            title: "Confirm To Delete",
+            title: "Confirm To Delete" + " " + name,
             message: `Are you sure to delete this category?`,
             buttons: [
                 {
@@ -59,7 +59,7 @@ const CustomerInfo = () => {
                         <th>Address</th>
                         <th style={{ width: "109px" }}>Action</th>
                     </tr>
-                    {list?.length > 0 && list.map(({ _id, name, phoneNumber, address }, index) => (
+                    {list?.length > 0 && list.sort((a, b) => (a.name > b.name) * 2 - 1).map(({ _id, name, phoneNumber, address }, index) => (
                         <tr>
                             <td>{name}</td>
                             <td>{phoneNumber}</td>
@@ -79,7 +79,7 @@ const CustomerInfo = () => {
                                 </a>
                                 <a
                                     className="btn-danger btn-sm"
-                                    onClick={() => handleDelete(_id)}
+                                    onClick={() => handleDelete(_id, name)}
                                 >
                                     <i className="fa fa-trash"></i>
                                 </a>

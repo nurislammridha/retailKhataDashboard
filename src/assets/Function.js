@@ -153,7 +153,7 @@ export const getSellingInfo = (data, today) => {
           todaySell = item?.totalPrice + todaySell
           todayNagad = item?.cash + todayNagad
           todayBaki = item?.due + todayBaki
-          todayProfit = item?.profit + monthlyProfit //not actual profit 
+          todayProfit = item?.profit + todayProfit //not actual profit 
         }
       }
     });
@@ -168,13 +168,13 @@ export const getCrDrInfo = (data) => {
     data.forEach((item) => {
       const { isCredit, amount, purposeID } = item
       if (isCredit && purposeID === "1") {
-        freshInvest = item?.amount + freshInvest
+        freshInvest = amount + freshInvest
       } else if (isCredit && purposeID === "2") {
-        internalIncome = item?.amount + internalIncome
+        internalIncome = amount + internalIncome
       } else if (isCredit && purposeID === "3") {
-        internalIncome = item?.amount + internalIncome
+        internalIncome = amount + internalIncome
       } else if (!isCredit) {
-        businessCost = item?.amount + businessCost
+        businessCost = amount + businessCost
       }
     });
   }

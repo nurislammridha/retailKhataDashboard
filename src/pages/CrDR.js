@@ -27,9 +27,9 @@ const CrDr = () => {
       })
     } catch (error) { }
   }
-  const handleDelete = (id) => {
+  const handleDelete = (id, amounts) => {
     confirmAlert({
-      title: "Confirm To Delete",
+      title: "Confirm To Delete" + " " + { amounts },
       message: `Are you sure to delete this category?`,
       buttons: [
         {
@@ -79,7 +79,7 @@ const CrDr = () => {
                 </a> */}
                 <a
                   className="btn-danger btn-sm"
-                  onClick={() => handleDelete(_id)}
+                  onClick={() => handleDelete(_id, amount)}
                 >
                   <i className="fa fa-trash"></i>
                 </a>
