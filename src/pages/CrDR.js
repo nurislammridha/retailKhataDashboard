@@ -29,7 +29,7 @@ const CrDr = () => {
   }
   const handleDelete = (id, amounts) => {
     confirmAlert({
-      title: "Confirm To Delete" + " " + { amounts },
+      title: "Confirm To Delete" + " " + amounts,
       message: `Are you sure to delete this category?`,
       buttons: [
         {

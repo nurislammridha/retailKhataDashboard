@@ -29,7 +29,7 @@ const ProductInfo = () => {
   }
   const handleDelete = (id, name) => {
     confirmAlert({
-      title: "Confirm To Delete" + " " + { name },
+      title: "Confirm To Delete" + " " + name,
       message: `Are you sure to delete this category?`,
       buttons: [
         {
