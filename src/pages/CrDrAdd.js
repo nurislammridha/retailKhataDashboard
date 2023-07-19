@@ -16,6 +16,7 @@ const CrDrAdd = () => {
   const [details, setDetails] = useState("Nothing");
   const [isCredit, setIsCredit] = useState("");
   const [crDr, setCrDr] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const submitSell = () => {
     if (amount <= 0) {
       showToast("error", "Invalid amount");
@@ -39,6 +40,7 @@ const CrDrAdd = () => {
       purpose,
       purposeID
     };
+    setIsLoading(true)
     const url = `${process.env.REACT_APP_API_URL}crDr`;
     try {
       axios.post(url, postData).then((res) => {
@@ -50,6 +52,7 @@ const CrDrAdd = () => {
           setCrDr("")
           setPurposeID("")
           setDetails("Nothing")
+          setIsLoading(false)
         }
       });
     } catch (error) { }
@@ -120,9 +123,10 @@ const CrDrAdd = () => {
         <div className="input_cell">
           <a
             onClick={() => {
-              submitSell();
+              !isLoading && submitSell();
             }}
             className="submit"
+            disabled={isLoading}
           >
             SUBMIT
           </a>

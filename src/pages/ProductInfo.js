@@ -7,6 +7,7 @@ import { confirmAlert } from 'react-confirm-alert'
 const ProductInfo = () => {
   const navigate = useNavigate()
   const [list, setList] = useState([])
+  const [search, setSearch] = useState("")
   const apiCall = () => {
     const url = `${process.env.REACT_APP_API_URL}product-info`;
     try {
@@ -51,6 +52,16 @@ const ProductInfo = () => {
         <h3>Product List</h3>
         <a onClick={() => navigate("/add-product")}>ADD</a>
       </div>
+      <div className='page_header mt20'>
+        <h3>Search</h3>
+        <input
+          className='ml30'
+          placeholder='search by product name'
+          value={search}
+          type='text'
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </div>
       <div className='list_table'>
         <table>
           <tr>
@@ -59,18 +70,28 @@ const ProductInfo = () => {
             <th>$/u</th>
             <th style={{ width: "109px" }}>Action</th>
           </tr>
-          {list?.length > 0 && list.map(({ _id, name, unitName, presentPricePerUnit }, index) => (
-            <tr>
+          {list?.length > 0 && list.filter((val) => {
+            if (search == "") {
+              return val;
+            } else if (
+              val.name
+                .toLowerCase()
+                .includes(search.toLowerCase())
+            ) {
+              return val;
+            }
+          }).map(({ _id, name, unitName, presentPricePerUnit }, index) => (
+            <tr onClick={() => navigate(`/product-detail/${_id}`)}>
               <td>{name}</td>
               <td>{unitName}</td>
               <td>{presentPricePerUnit}</td>
               <td>
-                <a
+                {/* <a
                   className="btn-primary btn-sm mr3"
                   onClick={() => navigate(`/product-detail/${_id}`)}
                 >
                   <i className="fa fa-eye"></i>
-                </a>
+                </a> */}
                 <a
                   className="btn-success btn-sm mr3"
                   onClick={() => navigate(`/product/${_id}`)}

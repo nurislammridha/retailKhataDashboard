@@ -10,7 +10,7 @@ const ProductInfoAdd = () => {
     const [name, setName] = useState("")
     const [unitName, setUnitName] = useState("")
     const [unitID, setUnitID] = useState("")
-
+    const [isLoading, setIsLoading] = useState(false);
     const submitCustomer = () => {
         if (name.length === 0) {
             showToast("error", "Name should n't be empty")
@@ -20,6 +20,7 @@ const ProductInfoAdd = () => {
             return 0
         }
         const url = `${process.env.REACT_APP_API_URL}product-info`;
+        setIsLoading(true)
         try {
             axios.post(url, { name, unitName, unitID, presentPricePerUnit: 0 }).then((res) => {
                 if (res?.data?.status) {
@@ -27,6 +28,7 @@ const ProductInfoAdd = () => {
                     setUnitName("")
                     setUnitID("")
                     showToast("success", res?.data?.message)
+                    setIsLoading(false)
                 }
             })
         } catch (error) { }
@@ -62,7 +64,13 @@ const ProductInfoAdd = () => {
                 </div>
 
                 <div className='input_cell'>
-                    <a onClick={() => { submitCustomer() }} className='submit'>SUBMIT</a>
+                    <a
+                        onClick={() => { !isLoading && submitCustomer() }}
+                        className='submit'
+                        disabled={isLoading}
+                    >
+                        {isLoading ? "Is Loading" : "SUBMIT"}
+                    </a>
                 </div>
             </div>
         </>

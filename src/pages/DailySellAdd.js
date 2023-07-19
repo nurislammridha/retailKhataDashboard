@@ -28,6 +28,7 @@ const DailySellAdd = () => {
   const [customerList, setCustomerList] = useState([]);
   const [buyerPhone, setBuyerPhone] = useState("");
   const [buyerAddress, setBuyerAddress] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const submitSell = () => {
     if (buyerName.length === 0) {
       showToast("error", "Customer should n't be empty");
@@ -66,6 +67,7 @@ const DailySellAdd = () => {
       paymentHistory: { paymentDate: date, amount: cash },
     };
     const url = `${process.env.REACT_APP_API_URL}daily-sell`;
+    setIsLoading(true)
     try {
       axios.post(url, postData).then((res) => {
         if (res?.data?.status) {
@@ -84,6 +86,7 @@ const DailySellAdd = () => {
           setPresentPricePerUnit(0);
           setBuyerPhone("");
           setBuyerAddress("");
+          setIsLoading(false)
         }
       });
     } catch (error) { }
@@ -234,11 +237,12 @@ const DailySellAdd = () => {
         <div className="input_cell">
           <a
             onClick={() => {
-              submitSell();
+              !isLoading && submitSell();
             }}
             className="submit"
+            disabled={isLoading}
           >
-            SUBMIT
+            {isLoading ? "Is Loading" : "SUBMIT"}
           </a>
         </div>
       </div>

@@ -84,12 +84,12 @@ const DailyBuy = () => {
           <tr>
             <th>Dealer</th>
             <th>Product</th>
-            <th>Qua</th>
-            <th>Pri</th>
-            <th>Cash</th>
-            <th>Due</th>
-            <th>Oth.</th>
-            <th style={{ width: "109px" }}>Action</th>
+            <th>Q</th>
+            <th>Pr</th>
+            <th>Ca</th>
+            <th>Du</th>
+            <th>Ot.</th>
+            <th>Ac</th>
           </tr>
           {list?.length > 0 &&
             list.map(
@@ -115,7 +115,7 @@ const DailyBuy = () => {
                   <td>{due}</td>
                   <td>{otherCost}</td>
                   <td>
-                    <a
+                    {/* <a
                       className="btn-primary btn-sm mr3"
                     // onClick={() => handleDelete()}
                     >
@@ -126,7 +126,7 @@ const DailyBuy = () => {
                     // onClick={() => navigate(`/sell/${_id}`)}
                     >
                       <i className="fa fa-pencil"></i>
-                    </a>
+                    </a> */}
                     <a
                       className="btn-danger btn-sm"
                       onClick={() => handleDelete(_id, productName)}

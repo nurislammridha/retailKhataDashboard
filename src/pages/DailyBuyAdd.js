@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { confirmAlert } from "react-confirm-alert";
 import { useNavigate } from "react-router-dom";
 import { showToast } from "../utils/ToastHelper";
 import Select from "react-select";
@@ -31,6 +30,7 @@ const DailyBuyAdd = () => {
   const [productList, setProductList] = useState([]);
   const [dealerList, setDealerList] = useState([]);
   const [otherCost, setOtherCost] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const updatePresentPricePerUnit = (message) => {
     const url = `${process.env.REACT_APP_API_URL}product-info/presentPricePerUnit/${productID}`;
     try {
@@ -54,6 +54,7 @@ const DailyBuyAdd = () => {
             setCash(0);
             setDue(-1);
             setDetails("Nothing");
+            setIsLoading(false)
           }
         });
     } catch (error) { }
@@ -95,6 +96,7 @@ const DailyBuyAdd = () => {
       paymentHistory: { paymentDate: date, amount: cash },
     };
     const url = `${process.env.REACT_APP_API_URL}daily-buy`;
+    setIsLoading(true)
     try {
       axios.post(url, postData).then((res) => {
         if (res?.data?.status) {
@@ -242,11 +244,12 @@ const DailyBuyAdd = () => {
         <div className="input_cell">
           <a
             onClick={() => {
-              submitSell();
+              !isLoading && submitSell();
             }}
             className="submit"
+            disabled={isLoading}
           >
-            SUBMIT
+            {isLoading ? "Is Loading" : "SUBMIT"}
           </a>
         </div>
       </div>

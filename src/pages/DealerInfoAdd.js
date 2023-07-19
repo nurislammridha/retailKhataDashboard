@@ -8,6 +8,7 @@ const DealerInfoAdd = () => {
     const [name, setName] = useState("")
     const [phoneNumber, setPhoneNumber] = useState("")
     const [address, setAddress] = useState("")
+    const [isLoading, setIsLoading] = useState(false);
     const submitCustomer = () => {
         if (name.length === 0) {
             showToast("error", "Name should n't be empty")
@@ -20,6 +21,7 @@ const DealerInfoAdd = () => {
             return 0
         }
         const url = `${process.env.REACT_APP_API_URL}dealer-info`;
+        setIsLoading(true)
         try {
             axios.post(url, { name, phoneNumber, address }).then((res) => {
                 if (res?.data?.status) {
@@ -27,6 +29,7 @@ const DealerInfoAdd = () => {
                     setAddress("")
                     setPhoneNumber("")
                     showToast("success", res?.data?.message)
+                    setIsLoading(false)
                 }
             })
         } catch (error) { }
@@ -66,7 +69,13 @@ const DealerInfoAdd = () => {
                     />
                 </div>
                 <div className='input_cell'>
-                    <a onClick={() => { submitCustomer() }} className='submit'>SUBMIT</a>
+                    <a
+                        onClick={() => { !isLoading && submitCustomer() }}
+                        className='submit'
+                        disabled={isLoading}
+                    >
+                        {isLoading ? "Is Loading" : "SUBMIT"}
+                    </a>
                 </div>
             </div>
         </>
