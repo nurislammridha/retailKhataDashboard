@@ -23,6 +23,7 @@ import CustomerPayment from "./pages/CustomerPayment";
 import ProductDetails from "./pages/ProductDetails";
 import CrDr from "./pages/CrDR";
 import CrDrAdd from "./pages/CrDrAdd";
+import ProductAllStock from "./pages/ProductAllStock";
 function App() {
   return (
     <>
@@ -58,6 +59,7 @@ function App() {
             <Route path="/add-unit" element={<UnitInfoAdd />} />
             <Route path="/crdr" element={<CrDr />} />
             <Route path="/add-crdr" element={<CrDrAdd />} />
+            <Route path="/all-stock" element={<ProductAllStock />} />
           </Routes>
         </div>
       </div>

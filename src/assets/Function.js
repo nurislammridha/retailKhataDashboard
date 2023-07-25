@@ -196,3 +196,84 @@ export const getBuyingInfo = (data) => {
   }
   return { totalBuy, totalNagad, totalBaki, totalCost };
 };
+export const groupByKey = (array, key) => {
+  const a = []
+  return array
+    .reduce((hash, obj) => {
+      if (obj[key] === undefined) return hash;
+      return Object.assign(hash, { [obj[key]]: (hash[obj[key]] || []).concat(obj) })
+    }, {})
+}
+export const listByProduct = (array, key) => {
+  const a = []
+  array.forEach((item) => {
+    if (item.productID === key) {
+      a.push(item)
+    }
+
+  })
+  return a
+}
+export const getAllStock = (buying, selling) => {
+
+  // let buying = [
+  //   { productName: "C", productID: '1', quantity: 10, otherCost: 20, totalPrice: 480 },//50
+  //   { productName: "B", productID: '2', quantity: 20, otherCost: 40, totalPrice: 460 },//25
+  //   { productName: "C", productID: '1', quantity: 15, otherCost: 100, totalPrice: 800 },//60
+  //   { productName: "B", productID: '2', quantity: 30, otherCost: 30, totalPrice: 870 },//30
+  // ]
+  // let selling = [
+  //   { productName: "C", productID: "1", quantity: 3, totalPrice: 170 }, //20
+  //   { productName: "B", productID: "2", quantity: 15, totalPrice: 400 },//25
+  //   { productName: "C", productID: "1", quantity: 7, totalPrice: 400 },//50
+  //   { productName: "C", productID: "1", quantity: 7, totalPrice: 400 },//50
+  //   { productName: "B", productID: "2", quantity: 5, totalPrice: 150 },//25
+  //   { productName: "C", productID: "1", quantity: 10, totalPrice: 700 },//100
+  //   { productName: "B", productID: "2", quantity: 10, totalPrice: 350 },//50
+  //   { productName: "C", productID: "1", quantity: 5, totalPrice: 320 },//20
+  //   { productName: "B", productID: "2", quantity: 20, totalPrice: 700 },//100
+  // ]
+  let arr = []
+  let grandProfit = 0
+  let buy = Object.entries(groupByKey(buying, "productName"));
+  // let sell = listByProduct(selling, "C")
+  // console.log('buy', buy)
+
+  if (buy && buy.length > 0) {
+    buy.forEach((item) => {
+      const { productName, unitName, productID, quantity, otherCost, totalPrice } = item[1][0] || {}
+      // console.log('quantity', quantity)
+      let pQuantity = quantity
+      let buyQuantity = quantity
+      let dQuantity = quantity
+      let pOtherCost = otherCost
+      let pTotalPrice = totalPrice
+      let flag = 0
+      let profit = 0
+      let sell = listByProduct(selling, productID)
+      let sellQuantity = 0
+      let presentPricePerUnit = 0
+      for (let i = 0; i < sell.length; i++) {
+        const { quantity: sQuantity, productID: pID, totalPrice: sTotalPrice } = sell[i] || {}
+        sellQuantity = sellQuantity + sQuantity
+        const calProfit = sTotalPrice - sQuantity * ((pTotalPrice + pOtherCost) / pQuantity)
+        presentPricePerUnit = calProfit
+        profit = profit + calProfit
+        grandProfit = grandProfit + calProfit
+        dQuantity = dQuantity - sQuantity
+        if (dQuantity === 0) {
+          const { quantity, otherCost, totalPrice } = item[1][flag + 1] || {}
+          if (i < sell.length - 1) { buyQuantity = buyQuantity + quantity }
+          pQuantity = quantity
+          dQuantity = quantity
+          pOtherCost = otherCost
+          pTotalPrice = totalPrice
+        }
+      }
+      const obj = { productName, unitName, profit, sellQuantity, buyQuantity, presentPricePerUnit }
+      arr.push(obj)
+    });
+  }
+  // console.log('{ arr, grandProfit }', { arr, grandProfit })
+  return { arr, grandProfit }
+};

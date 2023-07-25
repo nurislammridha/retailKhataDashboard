@@ -19,6 +19,7 @@ const Menu = () => {
             <li onClick={() => navigate("/sell")}>Daily Sell</li>
             <li onClick={() => navigate("/buy")}>Daily Buy</li>
             <li onClick={() => navigate("/crdr")}>Joma/Uttolon</li>
+            <li onClick={() => navigate("/all-stock")}>All Stock</li>
 
           </ul>
         </div>
