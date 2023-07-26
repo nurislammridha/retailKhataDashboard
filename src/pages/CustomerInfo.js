@@ -65,6 +65,7 @@ const CustomerInfo = () => {
             <div className='list_table'>
                 <table>
                     <tr>
+                        <th>S</th>
                         <th>Name</th>
                         <th>Phone</th>
                         <th>Address</th>
@@ -82,6 +83,7 @@ const CustomerInfo = () => {
                         }
                     }).sort((a, b) => (a.name > b.name) * 2 - 1).map(({ _id, name, phoneNumber, address }, index) => (
                         <tr onClick={() => navigate(`/customer-pay/${_id}`)}>
+                            <td>{index + 1}</td>
                             <td>{name}</td>
                             <td>{phoneNumber}</td>
                             <td>{address}</td>

@@ -217,21 +217,27 @@ export const listByProduct = (array, key) => {
 export const getAllStock = (buying, selling) => {
 
   // let buying = [
-  //   { productName: "C", productID: '1', quantity: 10, otherCost: 20, totalPrice: 480 },//50
-  //   { productName: "B", productID: '2', quantity: 20, otherCost: 40, totalPrice: 460 },//25
-  //   { productName: "C", productID: '1', quantity: 15, otherCost: 100, totalPrice: 800 },//60
-  //   { productName: "B", productID: '2', quantity: 30, otherCost: 30, totalPrice: 870 },//30
+  //   { unitName: "KG", productName: "C", productID: '1', quantity: 10, otherCost: 20, totalPrice: 480 },//50
+  //   { unitName: "KG", productName: "B", productID: '2', quantity: 20, otherCost: 40, totalPrice: 460 },//25
+  //   { unitName: "KG", productName: "C", productID: '1', quantity: 15, otherCost: 100, totalPrice: 800 },//60
+  //   { unitName: "KG", productName: "B", productID: '2', quantity: 30, otherCost: 30, totalPrice: 870 },//30
+  //   { unitName: "KG", productName: "D", productID: '3', quantity: 50, otherCost: 30, totalPrice: 470 },//30
+  //   { unitName: "KG", productName: "D", productID: '3', quantity: 50, otherCost: 30, totalPrice: 470 },//30
+  //   { unitName: "KG", productName: "D", productID: '3', quantity: 50, otherCost: 30, totalPrice: 470 },//30
   // ]
   // let selling = [
   //   { productName: "C", productID: "1", quantity: 3, totalPrice: 170 }, //20
   //   { productName: "B", productID: "2", quantity: 15, totalPrice: 400 },//25
-  //   { productName: "C", productID: "1", quantity: 7, totalPrice: 400 },//50
   //   { productName: "C", productID: "1", quantity: 7, totalPrice: 400 },//50
   //   { productName: "B", productID: "2", quantity: 5, totalPrice: 150 },//25
   //   { productName: "C", productID: "1", quantity: 10, totalPrice: 700 },//100
   //   { productName: "B", productID: "2", quantity: 10, totalPrice: 350 },//50
   //   { productName: "C", productID: "1", quantity: 5, totalPrice: 320 },//20
   //   { productName: "B", productID: "2", quantity: 20, totalPrice: 700 },//100
+  //   { productName: "D", productID: "3", quantity: 5, totalPrice: 60 },//10
+  //   { productName: "D", productID: "3", quantity: 50, totalPrice: 600 },//100
+  //   { productName: "D", productID: "3", quantity: 5, totalPrice: 60 },//10
+  //   { productName: "D", productID: "3", quantity: 5, totalPrice: 60 },//10
   // ]
   let arr = []
   let grandProfit = 0
@@ -244,7 +250,7 @@ export const getAllStock = (buying, selling) => {
       const { productName, unitName, productID, quantity, otherCost, totalPrice } = item[1][0] || {}
       // console.log('quantity', quantity)
       let pQuantity = quantity
-      let buyQuantity = quantity
+      let buyQuantity = 0
       let dQuantity = quantity
       let pOtherCost = otherCost
       let pTotalPrice = totalPrice
@@ -261,15 +267,26 @@ export const getAllStock = (buying, selling) => {
         profit = profit + calProfit
         grandProfit = grandProfit + calProfit
         dQuantity = dQuantity - sQuantity
-        if (dQuantity === 0) {
+        if (dQuantity <= 0) {
           const { quantity, otherCost, totalPrice } = item[1][flag + 1] || {}
-          if (i < sell.length - 1) { buyQuantity = buyQuantity + quantity }
+          // if (i < sell.length - 1) {
+          //   buyQuantity = buyQuantity + quantity
+          //   console.log('34', 34)
+          // } else {
+          //   console.log('2', 2)
+          //   for (let j = flag + 1; j < item[1].length - flag; j++) {
+          //     console.log('12', 12)
+          //     const { quantity } = item[1][flag + 1] || {}
+          //     buyQuantity = buyQuantity + quantity
+          //   }
+          // }
           pQuantity = quantity
           dQuantity = quantity
           pOtherCost = otherCost
           pTotalPrice = totalPrice
         }
       }
+      item[1].forEach(({ quantity }) => buyQuantity = buyQuantity + quantity)
       const obj = { productName, unitName, profit, sellQuantity, buyQuantity, presentPricePerUnit }
       arr.push(obj)
     });
@@ -277,3 +294,38 @@ export const getAllStock = (buying, selling) => {
   // console.log('{ arr, grandProfit }', { arr, grandProfit })
   return { arr, grandProfit }
 };
+
+export const allBuyingByDate = (list = []) => {
+  let totalQuantity = 0
+  let totalPrice = 0
+  let totalCash = 0
+  let totalDue = 0
+  let totalOther = 0
+  if (list && list.length > 0) {
+    list.map(({ totalPrice: price, cash, due, quantity, otherCost, }) => {
+      totalQuantity += quantity
+      totalPrice += price
+      totalCash += cash
+      totalDue += due
+      totalOther += otherCost
+    })
+  }
+  return { totalQuantity, totalPrice, totalCash, totalDue, totalOther }
+}
+export const allSellingByDate = (list = []) => {
+  let totalQuantity = 0
+  let totalPrice = 0
+  let totalCash = 0
+  let totalDue = 0
+  let totalProfit = 0
+  if (list && list.length > 0) {
+    list.map(({ totalPrice: price, cash, due, quantity, profit, }) => {
+      totalQuantity += quantity
+      totalPrice += price
+      totalCash += cash
+      totalDue += due
+      totalProfit += profit
+    })
+  }
+  return { totalQuantity, totalPrice, totalCash, totalDue, totalProfit }
+}

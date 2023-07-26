@@ -24,6 +24,8 @@ import ProductDetails from "./pages/ProductDetails";
 import CrDr from "./pages/CrDR";
 import CrDrAdd from "./pages/CrDrAdd";
 import ProductAllStock from "./pages/ProductAllStock";
+import AllBuyByDate from "./pages/AllBuyByDate";
+import AllSellByDate from "./pages/AllSellByDate";
 function App() {
   return (
     <>
@@ -60,6 +62,8 @@ function App() {
             <Route path="/crdr" element={<CrDr />} />
             <Route path="/add-crdr" element={<CrDrAdd />} />
             <Route path="/all-stock" element={<ProductAllStock />} />
+            <Route path="/all-buy-date" element={<AllBuyByDate />} />
+            <Route path="/all-sell-date" element={<AllSellByDate />} />
           </Routes>
         </div>
       </div>

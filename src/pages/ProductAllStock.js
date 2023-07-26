@@ -5,7 +5,7 @@ import { getAllStock, getTotalBuy, getTotalDue, getTotalPay, getTotalSell } from
 import { showToast } from '../utils/ToastHelper';
 
 const ProductAllStock = () => {
-    const [stock, setStock] = useState({})
+    const [stock, setStock] = useState({ arr: [], grandProfit: 0 })
     const allSelling = (buyingData) => {
         const url = `${process.env.REACT_APP_API_URL}daily-sell`;
         try {
@@ -35,10 +35,10 @@ const ProductAllStock = () => {
     useEffect(() => {
         allBuying()
         // allSelling()
-        // getAllStock()
+        // setStock(getAllStock())
     }, [])
 
-    console.log('stock', stock)
+    // console.log('stock', stock)
     return (
         <>
             <div className="page_header">
@@ -48,25 +48,27 @@ const ProductAllStock = () => {
             <div className="list_table">
                 <table>
                     <tr>
+                        <th>S</th>
                         <th>Name</th>
                         <th>Buy</th>
                         <th>Sell</th>
                         <th>Stock</th>
                         <th>Profit</th>
                     </tr>
-                    {stock?.arr?.map(({ productName, buyQuantity, sellQuantity, profit, unitName }) => (<tr>
+                    {stock?.arr?.map(({ productName, buyQuantity, sellQuantity, profit, unitName }, index) => (<tr>
+                        <td>{index + 1}</td>
                         <td>{productName}</td>
                         <td>{buyQuantity}</td>
                         <td>{sellQuantity}</td>
                         <td>{buyQuantity - sellQuantity} {unitName}</td>
-                        <td>{profit}&#2547;</td>
+                        <td>{profit.toFixed(2)}&#2547;</td>
                     </tr>))}
                     <tr>
                         <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td>{stock?.grandProfit}&#2547;</td>
+                        <td>{stock?.grandProfit.toFixed(2)}&#2547;</td>
                     </tr>
                 </table>
             </div>
