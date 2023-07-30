@@ -329,3 +329,39 @@ export const allSellingByDate = (list = []) => {
   }
   return { totalQuantity, totalPrice, totalCash, totalDue, totalProfit }
 }
+export const allCustomerDue = (list = []) => {
+  let buy = Object.entries(groupByKey(list, "buyerName"));
+  let name = ""
+  let address = ""
+  let phone = ""
+  let totalDue = 0
+  let lastSellingDate = ""
+  let lastPayingDate = ""
+  let arr = []
+  console.log('buy', buy)
+  if (buy && buy.length > 0) {
+
+    buy.map((item) => {
+      totalDue = 0
+      item[1] && item[1].length > 0 && item[1].map((item2, index) => {
+        const { buyerName, buyerAddress, buyerPhone, isPaid, due, date, paymentHistory } = item2
+        name = buyerName
+        address = buyerAddress
+        phone = buyerPhone
+        if (!isPaid) totalDue = totalDue + due
+        if (index > 0 && (new Date(date).getTime()) - (new Date(item[1][index - 1]?.date).getTime())) {
+          lastSellingDate = date
+        }
+        lastPayingDate = paymentHistory[0]?.paymentDate
+        paymentHistory.map((item3, index3) => {
+          if (index3 > 0 && (new Date(paymentHistory[index3]?.paymentDate).getTime()) - (new Date(paymentHistory[index3 - 1]?.paymentDate).getTime())) {
+            lastPayingDate = item3?.paymentDate
+          }
+        })
+      })
+
+      arr.push({ name, address, phone, totalDue, lastSellingDate, lastPayingDate })
+    })
+  }
+  return arr
+}

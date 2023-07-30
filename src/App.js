@@ -26,6 +26,7 @@ import CrDrAdd from "./pages/CrDrAdd";
 import ProductAllStock from "./pages/ProductAllStock";
 import AllBuyByDate from "./pages/AllBuyByDate";
 import AllSellByDate from "./pages/AllSellByDate";
+import AllBakiByCustomer from "./pages/AllBakiByCustomer";
 function App() {
   return (
     <>
@@ -64,6 +65,7 @@ function App() {
             <Route path="/all-stock" element={<ProductAllStock />} />
             <Route path="/all-buy-date" element={<AllBuyByDate />} />
             <Route path="/all-sell-date" element={<AllSellByDate />} />
+            <Route path="/customer-baki" element={<AllBakiByCustomer />} />
           </Routes>
         </div>
       </div>

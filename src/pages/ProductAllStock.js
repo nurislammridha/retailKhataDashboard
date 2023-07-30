@@ -68,6 +68,7 @@ const ProductAllStock = () => {
                         <td></td>
                         <td></td>
                         <td></td>
+                        <td></td>
                         <td>{stock?.grandProfit.toFixed(2)}&#2547;</td>
                     </tr>
                 </table>

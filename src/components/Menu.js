@@ -22,6 +22,7 @@ const Menu = () => {
             <li onClick={() => navigate("/all-stock")}>All Stock</li>
             <li onClick={() => navigate("/all-buy-date")}>All Buying Date</li>
             <li onClick={() => navigate("/all-sell-date")}>All Selling Date</li>
+            <li onClick={() => navigate("/customer-baki")}>Baki By Amount</li>
 
           </ul>
         </div>
